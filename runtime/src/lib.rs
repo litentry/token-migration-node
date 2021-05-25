@@ -5,7 +5,7 @@
 // Make the WASM binary available.
 #[cfg(feature = "std")]
 include!(concat!(env!("OUT_DIR"), "/wasm_binary.rs"));
-
+use sp_io::hashing::blake2_128;
 use sp_std::prelude::*;
 use sp_core::{crypto::KeyTypeId, OpaqueMetadata};
 use sp_runtime::{
@@ -41,6 +41,8 @@ use pallet_transaction_payment::CurrencyAdapter;
 
 /// Import the template pallet.
 pub use pallet_template;
+pub use chainbridge;
+pub use example_pallet;
 
 /// An index to a block.
 pub type BlockNumber = u32;
@@ -270,6 +272,25 @@ impl pallet_template::Config for Runtime {
 	type Event = Event;
 }
 
+
+parameter_types! {
+    pub const ChainId: u8 = 1;
+    pub const ProposalLifetime: BlockNumber = 1000;
+}
+
+impl chainbridge::Config for Runtime {
+	type Event = Event;
+	type AdminOrigin = frame_system::EnsureRoot<Self::AccountId>;
+	type Proposal = Call;
+	type ChainId = ChainId;
+	type ProposalLifetime = ProposalLifetime;
+}
+
+impl example_pallet::Config for Runtime {
+	type BridgeOrigin = chainbridge::EnsureBridge<Runtime>;
+	type Currency = pallet_balances::Module<Runtime>;
+}
+
 // Create the runtime by composing the FRAME pallets that were previously configured.
 construct_runtime!(
 	pub enum Runtime where
@@ -287,6 +308,8 @@ construct_runtime!(
 		Sudo: pallet_sudo::{Module, Call, Config<T>, Storage, Event<T>},
 		// Include the custom logic from the pallet-template in the runtime.
 		TemplateModule: pallet_template::{Module, Call, Storage, Event<T>},
+		ChainBridge: chainbridge::{Module, Call, Storage, Event<T>},
+		Example: example_pallet::{Module, Call},
 	}
 );
 
