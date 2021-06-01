@@ -42,7 +42,7 @@ use pallet_transaction_payment::CurrencyAdapter;
 /// Import the template pallet.
 pub use pallet_template;
 pub use chainbridge;
-pub use example_pallet;
+pub use example;
 
 /// An index to a block.
 pub type BlockNumber = u32;
@@ -286,9 +286,26 @@ impl chainbridge::Config for Runtime {
 	type ProposalLifetime = ProposalLifetime;
 }
 
-impl example_pallet::Config for Runtime {
+parameter_types! {
+    pub HashId: chainbridge::ResourceId = chainbridge::derive_resource_id(1, &blake2_128(b"hash"));
+    // Note: Chain ID is 0 indicating this is native to another chain
+    pub NativeTokenId: chainbridge::ResourceId = chainbridge::derive_resource_id(0, &blake2_128(b"DAV"));
+
+    pub NFTTokenId: chainbridge::ResourceId = chainbridge::derive_resource_id(1, &blake2_128(b"NFT"));
+}
+
+impl erc721::Config for Runtime {
+	type Event = Event;
+	type Identifier = NFTTokenId;
+}
+
+impl example::Config for Runtime {
+	type Event = Event;
 	type BridgeOrigin = chainbridge::EnsureBridge<Runtime>;
 	type Currency = pallet_balances::Module<Runtime>;
+	type HashId = HashId;
+	type NativeTokenId = NativeTokenId;
+	type Erc721Id = NFTTokenId;
 }
 
 // Create the runtime by composing the FRAME pallets that were previously configured.
@@ -309,7 +326,8 @@ construct_runtime!(
 		// Include the custom logic from the pallet-template in the runtime.
 		TemplateModule: pallet_template::{Module, Call, Storage, Event<T>},
 		ChainBridge: chainbridge::{Module, Call, Storage, Event<T>},
-		Example: example_pallet::{Module, Call},
+		Example: example::{Module, Call},
+		Erc721: erc721::{Module, Call, Storage, Event<T>},
 	}
 );
 

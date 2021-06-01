@@ -761,7 +761,7 @@ dependencies = [
 [[package]]
 name = "chainbridge"
 version = "0.0.2"
-source = "git+https://github.com/litentry/chainbridge-substrate#57fbdf4dd60d44e4df60b45cf4df46a677eedeaa"
+source = "git+https://github.com/Chainsafe/chainbridge-substrate#39990274866fd3b759aa9aa9d883da499ff3d6ea"
 dependencies = [
  "frame-support",
  "frame-system",
@@ -1402,11 +1402,29 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f7531096570974c3a9dcf9e4b8e1cede1ec26cf5046219fb3b9d897503b9be59"
 
 [[package]]
-name = "example-pallet"
+name = "example-erc721"
 version = "0.0.1"
-source = "git+https://github.com/litentry/chainbridge-substrate#57fbdf4dd60d44e4df60b45cf4df46a677eedeaa"
+source = "git+https://github.com/Chainsafe/chainbridge-substrate#39990274866fd3b759aa9aa9d883da499ff3d6ea"
 dependencies = [
  "chainbridge",
+ "frame-support",
+ "frame-system",
+ "parity-scale-codec",
+ "serde",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+ "substrate-wasm-builder-runner",
+]
+
+[[package]]
+name = "example-pallet"
+version = "0.0.1"
+source = "git+https://github.com/Chainsafe/chainbridge-substrate#39990274866fd3b759aa9aa9d883da499ff3d6ea"
+dependencies = [
+ "chainbridge",
+ "example-erc721",
  "frame-support",
  "frame-system",
  "parity-scale-codec",
@@ -3661,6 +3679,7 @@ name = "node-template-runtime"
 version = "3.0.0"
 dependencies = [
  "chainbridge",
+ "example-erc721",
  "example-pallet",
  "frame-benchmarking",
  "frame-executive",
