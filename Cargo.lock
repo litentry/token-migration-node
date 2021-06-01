@@ -3881,7 +3881,6 @@ dependencies = [
  "sp-io",
  "sp-runtime",
  "sp-std",
- "substrate-wasm-builder-runner",
 ]
 
 [[package]]

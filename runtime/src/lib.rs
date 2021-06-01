@@ -41,8 +41,8 @@ use pallet_transaction_payment::CurrencyAdapter;
 
 /// Import the template pallet.
 pub use pallet_template;
-pub use chainbridge;
-pub use example_pallet;
+pub use pallet_bridge;
+pub use example;
 
 /// An index to a block.
 pub type BlockNumber = u32;

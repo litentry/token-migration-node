@@ -7,28 +7,31 @@ use frame_support::{
 	ensure,
 	traits::{EnsureOrigin, Get},
 	weights::{GetDispatchInfo, Pays},
-	PalletId, Parameter,
+	Parameter,
 };
 
 use frame_system::{self as system, ensure_root, ensure_signed};
 use sp_core::U256;
 use sp_runtime::traits::{AccountIdConversion, Dispatchable};
-use sp_runtime::RuntimeDebug;
+use sp_runtime::{RuntimeDebug, ModuleId};
 use sp_std::prelude::*;
 
 use codec::{Decode, Encode, EncodeLike};
 
-mod mock;
-mod tests;
+// mod mock;
+// mod tests;
 
-pub mod hashing;
+// pub mod hashing;
 
 const DEFAULT_RELAYER_THRESHOLD: u32 = 1;
-const MODULE_ID: PalletId = PalletId(*b"phala/bg");
+const MODULE_ID: ModuleId = ModuleId(*b"phala/bg");
 
 pub type ChainId = u8;
 pub type DepositNonce = u64;
 pub type ResourceId = [u8; 32];
+
+// #[derive(Clone, Copy, Eq, PartialEq, Encode, Decode)]
+// pub struct PalletId(pub [u8; 8]);
 
 /// Helper function to concatenate a chain ID and some bytes to produce a resource ID.
 /// The common format is (31 bytes unique ID + 1 byte chain ID).
