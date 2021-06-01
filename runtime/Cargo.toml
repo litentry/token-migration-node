@@ -49,8 +49,8 @@ sp-version = { default-features = false, version = '3.0.0' }
 # local dependencies
 pallet-template = { default-features = false, path = '../pallets/template', version = '3.0.0' }
 
-chainbridge = { default-features = false, git = 'https://github.com/litentry/chainbridge-substrate' }
-example-pallet = { default-features = false, git = 'https://github.com/litentry/chainbridge-substrate' }
+pallet-bridge = { default-features = false, path = '../pallets/bridge' }
+pallet-bridge-transfer = { default-features = false, path = '../pallets/bridge_transfer' }
 
 [features]
 default = ['std']
@@ -92,7 +92,7 @@ std = [
     'sp-std/std',
     'sp-transaction-pool/std',
     'sp-version/std',
-    'chainbridge/std',
+    'pallet-bridge/std',
     'sp-io/std',
-    'example-pallet/std'
+    'pallet-bridge-transfer/std'
 ]

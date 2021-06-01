@@ -759,23 +759,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "chainbridge"
-version = "0.0.2"
-source = "git+https://github.com/litentry/chainbridge-substrate#57fbdf4dd60d44e4df60b45cf4df46a677eedeaa"
-dependencies = [
- "frame-support",
- "frame-system",
- "pallet-balances",
- "parity-scale-codec",
- "serde",
- "sp-core",
- "sp-io",
- "sp-runtime",
- "sp-std",
- "substrate-wasm-builder-runner",
-]
-
-[[package]]
 name = "chrono"
 version = "0.4.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1400,24 +1383,6 @@ name = "event-listener"
 version = "2.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f7531096570974c3a9dcf9e4b8e1cede1ec26cf5046219fb3b9d897503b9be59"
-
-[[package]]
-name = "example-pallet"
-version = "0.0.1"
-source = "git+https://github.com/litentry/chainbridge-substrate#57fbdf4dd60d44e4df60b45cf4df46a677eedeaa"
-dependencies = [
- "chainbridge",
- "frame-support",
- "frame-system",
- "parity-scale-codec",
- "serde",
- "sp-arithmetic",
- "sp-core",
- "sp-io",
- "sp-runtime",
- "sp-std",
- "substrate-wasm-builder-runner",
-]
 
 [[package]]
 name = "exit-future"
@@ -3660,8 +3625,6 @@ dependencies = [
 name = "node-template-runtime"
 version = "3.0.0"
 dependencies = [
- "chainbridge",
- "example-pallet",
  "frame-benchmarking",
  "frame-executive",
  "frame-support",
@@ -3671,6 +3634,8 @@ dependencies = [
  "hex-literal",
  "pallet-aura",
  "pallet-balances",
+ "pallet-bridge",
+ "pallet-bridge-transfer",
  "pallet-grandpa",
  "pallet-randomness-collective-flip",
  "pallet-sudo",
@@ -3900,6 +3865,41 @@ dependencies = [
  "serde",
  "sp-runtime",
  "sp-std",
+]
+
+[[package]]
+name = "pallet-bridge"
+version = "0.0.1"
+dependencies = [
+ "blake2-rfc",
+ "frame-support",
+ "frame-system",
+ "pallet-balances",
+ "parity-scale-codec",
+ "serde",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+ "substrate-wasm-builder-runner",
+]
+
+[[package]]
+name = "pallet-bridge-transfer"
+version = "0.0.1"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "pallet-balances",
+ "pallet-bridge",
+ "parity-scale-codec",
+ "serde",
+ "sp-arithmetic",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+ "substrate-wasm-builder-runner",
 ]
 
 [[package]]
