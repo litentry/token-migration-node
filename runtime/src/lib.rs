@@ -41,7 +41,7 @@ use pallet_transaction_payment::CurrencyAdapter;
 
 /// Import the template pallet.
 pub use pallet_template;
-pub use pallet_bridge;
+pub use chainbridge;
 pub use example;
 
 /// An index to a block.
@@ -286,7 +286,8 @@ impl chainbridge::Config for Runtime {
 	type ProposalLifetime = ProposalLifetime;
 }
 
-impl example_pallet::Config for Runtime {
+impl example::Config for Runtime {
+	type Event = Event;
 	type BridgeOrigin = chainbridge::EnsureBridge<Runtime>;
 	type Currency = pallet_balances::Module<Runtime>;
 }
@@ -309,7 +310,7 @@ construct_runtime!(
 		// Include the custom logic from the pallet-template in the runtime.
 		TemplateModule: pallet_template::{Module, Call, Storage, Event<T>},
 		ChainBridge: chainbridge::{Module, Call, Storage, Event<T>},
-		Example: example_pallet::{Module, Call},
+		Example: example::{Module, Call, Event },
 	}
 );
 
