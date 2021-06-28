@@ -1,7 +1,7 @@
 use sp_core::{Pair, Public, sr25519};
 use node_template_runtime::{
 	AccountId, AuraConfig, BalancesConfig, GenesisConfig, GrandpaConfig,
-	SudoConfig, SystemConfig, WASM_BINARY, Signature, BridgeTransferConfig
+	SudoConfig, SystemConfig, WASM_BINARY, Signature, ExampleConfig
 };
 use sp_consensus_aura::sr25519::AuthorityId as AuraId;
 use sp_finality_grandpa::AuthorityId as GrandpaId;
@@ -153,7 +153,7 @@ fn testnet_genesis(
 			// Assign network admin rights.
 			key: root_key,
 		},
-		bridge_transfer: BridgeTransferConfig {
+		example: ExampleConfig {
 			bridge_tokenid: pallet_bridge::derive_resource_id(1, &pallet_bridge::hashing::blake2_128(b"PHA")),
 			bridge_lotteryid: pallet_bridge::derive_resource_id(1, &pallet_bridge::hashing::blake2_128(b"lottery")),
 		},
